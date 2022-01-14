@@ -1,0 +1,691 @@
+$mini: 460px;
+$small: 800px;
+$medium: 1000px;
+$large: 1300px;
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1em 1.4em;
+    .logoContainer {
+        flex-grow: 1;
+        @media screen and (max-width: $small) {
+            // display: none;
+        }
+        img {
+            height: 22px;
+        }
+    }
+    .menuContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: left 400ms ease-in-out, bottom 400ms ease-in-out;
+        .menu {
+            padding: 4px 2px;
+            margin: 8px 16px;
+            cursor: pointer;
+            position: relative;
+            &[selectedd] {
+                font-weight: bold;
+            }
+            div {
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                right: 100%;
+                height: 1px;
+                background-color: black;
+                transition: right 300ms ease-in-out;
+            }
+            &:hover {
+                div {
+                    right: 0%;
+                }
+            }
+            @media screen and (max-width: $small) {
+                font-size: 1.3em;
+                color: white;
+                &:hover {
+                    div {
+                        right: 100%;
+                    }
+                }
+            }
+        }
+        .toggleButton {
+            display: none;
+        }
+        .letsChatMobile {
+            display: none;
+        }
+        @media screen and (max-width: $small) {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: darkslateblue;
+            position: fixed;
+            z-index: 100;
+            // top: 0px; right: 0px; left: 0px; bottom: 0px;
+            top: 17px;
+            right: 19px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            // border-bottom-left-radius: 30em;
+            .menu,
+            .menuRequestQuote {
+                display: none;
+            }
+            &[selectedd] {
+                width: 100%;
+                height: 100%;
+                border-radius: 0px;
+                top: 0px;
+                right: 0px;
+                left: 0px;
+                bottom: 0px;
+                border-bottom-left-radius: 30em;
+                .menu,
+                .menuRequestQuote {
+                    display: block;
+                    font-size: 1.3em;
+                }
+            }
+            .toggleButton {
+                position: fixed;
+                color: white;
+                z-index: 101;
+                display: inline-block;
+                width: 28px;
+                height: 24px;
+                top: 32px;
+                right: 32px;
+                cursor: pointer;
+                div {
+                    display: inline-block;
+                    content: "";
+                    height: 4px;
+                    width: 100%;
+                    background-color: white;
+                    position: absolute;
+                    left: 0px;
+                    top: 10px;
+                    transition: all 200ms ease-in-out;
+                }
+                &::before {
+                    display: inline-block;
+                    content: "";
+                    height: 4px;
+                    width: 100%;
+                    background-color: white;
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    // transform: rotateZ(45deg);
+                    transform-origin: left;
+                    transition: all 200ms ease-in-out;
+                }
+                &::after {
+                    display: inline-block;
+                    content: "";
+                    height: 4px;
+                    width: 100%;
+                    background-color: white;
+                    position: absolute;
+                    left: 0px;
+                    bottom: 0px;
+                    transform-origin: left;
+                    transition: all 200ms ease-in-out;
+                }
+
+                &[selectedd] {
+                    // left: 0px; top: 0px; right: 0px; bottom: 0px;
+                    &::before {
+                        transform: rotateZ(45deg);
+                    }
+                    &::after {
+                        transform: rotateZ(-45deg);
+                    }
+                    div {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .menuRequestQuote {
+            padding: 12px 16px;
+            margin: 8px 16px;
+            cursor: pointer;
+            background-color: darkslateblue;
+            border-radius: 1000px;
+            color: white;
+            // box-shadow: 0px 0px 2px gray;
+            transition: transform 200ms ease-in-out;
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+    }
+}
+
+.workContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quoteHeading {
+    padding-top: 2em;
+    width: 80%;
+    animation: toUpAnimation 600ms ease-in-out;
+    @media screen and (max-width: $medium) {
+        width: 90%;
+    }
+    font-size: 3em;
+    font-weight: bold;
+    .firstQuote {
+        color: black;
+    }
+    .secondQuote {
+        color: red;
+    }
+}
+
+.categoryContainer {
+    padding-top: 2em;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    animation: toUpAnimation 600ms ease-in-out;
+    @media screen and (max-width: $small) {
+        display: none;
+    }
+    @media screen and (max-width: $medium) {
+        flex-direction: column;
+        width: 90%;
+    }
+    .category {
+        flex-grow: 1;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        .categoryItem {
+            padding: 10px 8px;
+            cursor: pointer;
+            &[selected] {
+                font-weight: bold;
+            }
+            &[selected]:before {
+                content: "";
+                display: inline-block;
+                width: 12px;
+                height: 2px;
+                background-color: red;
+                line-height: 1em;
+                vertical-align: middle;
+                margin-right: 8px;
+            }
+        }
+    }
+    .legend {
+        padding: 10px 8px;
+        align-self: flex-end;
+        @media screen and (max-width: $medium) {
+            align-self: flex-start;
+        }
+        font-size: 0.8em;
+        .legendTitle {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .legendBody {
+            padding: 2px 8px;
+            margin: 8px 0px;
+            display: grid;
+            grid-template-columns: auto auto;
+            border-left: 1px solid black;
+            .legendItem {
+                display: flex;
+                padding-bottom: 0px;
+                padding-left: 16px;
+                padding-right: 16px;
+                img {
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 4px;
+                }
+                &:first-child {
+                    padding-bottom: 8px;
+                }
+            }
+        }
+    }
+}
+
+.ChatContainer {
+    width: 80%;
+    padding-top: 2em;
+    @media screen and (max-width: $medium) {
+        width: 90%;
+    }
+    .ChatTitle {
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+        color: red;
+    }
+    .ChatItemContainer {
+        padding-top: 2em;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        @media screen and (max-width: $medium) {
+            grid-template-columns: auto;
+        }
+        .ChatItem {
+            cursor: pointer;
+            padding: 16px 16px;
+            font-size: 0.9em;
+            .ChatItemTitle {
+                position: relative;
+                font-size: 1.6em;
+                font-weight: bold;
+                padding-bottom: 8px;
+                color: black;
+                transition: all 500ms ease-in-out;
+                &::after {
+                    content: "⇾";
+                    font-size: 0.8em;
+                    position: absolute;
+                    padding-left: 24px;
+                    color: red;
+                    transition: padding-left 500ms ease-in-out;
+                }
+            }
+            &:hover {
+                .ChatItemTitle {
+                    color: red;
+                    &::after {
+                        padding-left: 42px;
+                    }
+                }
+            }
+            &:not(:last-child) {
+                border-right: 1px solid lightgray;
+                @media screen and (max-width: $medium) {
+                    border-right: none;
+                    border-bottom: 1px solid lightgray;
+                }
+            }
+        }
+    }
+}
+
+.workFooter {
+    padding: 2em 0em;
+    text-align: center;
+    .socialIconContainer {
+        img {
+            width: 24px;
+            height: 24px;
+            margin: 8px 8px;
+        }
+    }
+    .footerAddress {
+        padding: 6px 0px;
+        color: #353535;
+        font-size: 0.9em;
+    }
+}
+
+.productContainer {
+    padding-top: 2em;
+    width: 100%;
+    display: grid;
+    // grid-template-columns: auto;
+    grid-auto-flow: row dense;
+    @media screen and (min-width: $mini) {
+        grid-template-columns: auto;
+    }
+    @media screen and (min-width: $small) {
+        grid-template-columns: auto auto;
+    }
+    @media screen and (min-width: $medium) {
+        grid-template-columns: auto auto auto;
+    }
+    @media screen and (min-width: $large) {
+        grid-template-columns: auto auto auto auto;
+    }
+    transition: all 200ms ease-in-out;
+    .productItem {
+        position: relative;
+        animation: toDownAnimation 600ms ease-in-out;
+        @media screen and (max-width: $mini) {
+            grid-column: 1 !important;
+        }
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        color: white;
+        &[light] {
+            color: black;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            background-size: cover;
+            background-origin: content-box;
+            background-position: center;
+            transition: all 500ms ease-in-out;
+        }
+        &:hover {
+            &[light] {
+                color: white;
+            }
+            img {
+                // border: 4px solid red;
+                transform: scale(1.1);
+            }
+            .contentContainer {
+                background-color: #00000055;
+            }
+        }
+        .contentContainer {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1em;
+            transition: all 500ms ease-in-out;
+            .category {
+                font-size: 0.9em;
+            }
+            .productName {
+                font-size: 1.2em;
+                padding-top: 12px;
+                font-weight: bold;
+            }
+            .builtType {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: flex-start;
+            }
+            .builtTypeItems {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: white;
+                margin: 8px;
+                padding: 8px;
+                overflow: hidden;
+                box-shadow: 0px 0px 4px gray;
+            }
+        }
+    }
+}
+
+.workDetailContaier {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.workDetailPanel {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 4em;
+    width: 100%;
+}
+.ProductInfoContainer {
+    padding: 0px 1em;
+}
+.ProductContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 4em;
+    position: relative;
+    .ProductName {
+        font-weight: bold;
+        font-size: 3em;
+        animation: toUpAnimation 600ms ease-in-out 1 0ms;
+    }
+    .ProductInfo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        @media screen and (max-width: $medium) {
+            grid-template-columns: 1fr;
+        }
+    }
+    .CarouselContainer {
+        padding-top: 2em;
+        padding-bottom: 1em;
+        display: flex;
+        justify-content: center;
+        order: 0;
+        transition: all 200ms ease-in-out;
+        @media screen and (max-width: $medium) {
+            order: -1;
+        }
+        .caroBg {
+            background-color: lightseagreen;
+            width: 35em;
+            height: 35em;
+            border-radius: 50%;
+            position: relative;
+            animation: caroselBgAnimation 600ms ease-in-out 1;
+            @media screen and (max-width: $medium) {
+                width: 25em;
+                height: 25em;
+            }
+            @media screen and (max-width: $small) {
+                width: 20em;
+                height: 20em;
+            }
+        }
+        .caroImage {
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            transform: scale(1.25);
+            animation: caroselImageAnimation 600ms ease-in-out 1;
+        }
+        .caroLegend {
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: -62px;
+            display: flex;
+            justify-content: center;
+            div {
+                border-radius: 50%;
+                width: 12px;
+                height: 12px;
+                background: red;
+                margin: 4px;
+            }
+        }
+    }
+    .Store {
+        display: flex;
+        padding: 4em 0em;
+        animation: toUpAnimation 600ms ease-in-out 1 0ms;
+    }
+    .StoreItem {
+        border: 1px solid lightgray;
+        padding: 10px 50px 10px 20px;
+        img {
+            width: 25px;
+        }
+    }
+    .StoreText1 {
+        font-weight: bold;
+        font-size: 0.6em;
+    }
+    .StoreText2 {
+        font-weight: bolder;
+        font-size: 0.8em;
+    }
+    .ProductDescription {
+        padding-bottom: 2em;
+        padding-right: 2em;
+        line-height: 1.6;
+        font-size: 0.9em;
+        animation: toUpAnimation 600ms ease-in-out 1;
+    }
+    .ProductKeyFeatures {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        animation: toUpAnimation 600ms ease-in-out 1;
+        .KeyFeatureTitle {
+            font-weight: bold;
+            white-space: nowrap;
+            padding-right: 2em;
+        }
+        .KeyFeatureContainer {
+            padding-left: 2em;
+            border-left: 1px solid lightgray;
+            @media screen and (max-width: $medium) {
+                border-left: none;
+                padding-left: 0em;
+                padding-top: 1em;
+            }
+            div {
+                line-height: 2em;
+            }
+        }
+        @media screen and (max-width: $medium) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+.ArrowContainer {
+    display: flex;
+    justify-content: space-between;
+    min-width: 100%;
+    padding: 2em 0em;
+    @media screen and (min-width: $medium) {
+        position: absolute;
+        top: 40%;
+        left: -40px;
+        right: -40px;
+    }
+    div {
+        cursor: pointer;
+        margin-left: 0px;
+        margin-right: 0px;
+        box-shadow: 0px 0px 8px gray;
+        transition: all 200ms ease-in-out;
+        background: red;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+            transform: scale(1.1);
+        }
+        img {
+            width: 16px;
+        }
+    }
+}
+
+.backMenu {
+    padding: 4px 2px;
+    margin: 8px 16px;
+    cursor: pointer;
+    position: relative;
+    align-self: center;
+    &[selectedd] {
+        font-weight: bold;
+    }
+    div {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 100%;
+        height: 1px;
+        background-color: black;
+        transition: right 300ms ease-in-out;
+    }
+    &:hover {
+        div {
+            right: 0%;
+        }
+    }
+    &:before {
+        content: "⇽";
+        display: inline-block;
+        width: 12px;
+        color: red;
+        margin-right: 8px;
+    }
+}
+
+.menuRequestQuote {
+    padding: 12px 16px;
+    margin: 8px 16px;
+    cursor: pointer;
+    background-color: darkslateblue;
+    border-radius: 1000px;
+    color: white;
+    transition: transform 200ms ease-in-out;
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes caroselBgAnimation {
+    from {
+        transform: scale(0.2);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes caroselImageAnimation {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes toUpAnimation {
+    from {
+        transform: translateY(30px) rotateX(-20deg);
+        opacity: 0.2;
+    }
+    to {
+        transform: translateY(0) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes toDownAnimation {
+    from {
+        transform: translateY(-20px) rotateX(30deg);
+        opacity: 0.2;
+    }
+    to {
+        transform: translateY(0) rotateX(0deg);
+        opacity: 1;
+    }
+}
